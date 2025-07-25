@@ -1,0 +1,8 @@
+le_dataset:
+  object_type: pipeline
+  object_uuid: data_prep
+  outdated_after:
+    seconds: 600
+  repo_path: /home/src/asal_1
+  settings:
+    asal_data_transformed: {}
