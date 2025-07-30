@@ -42,14 +42,14 @@ def one_hot_encoding(df):
 
 @transformer
 def transform(
-    data: Dict[str, Union[Series, DataFrame]], 
+    data: Dict[str, Union[Series, DataFrame]],  
     *args, 
     **kwargs) -> Tuple[DataFrame, DataFrame, Series, Series]:
 
     # testing data output
     # return data["asal_data_transformed"]
 
-    target, df = data['asal_data_transformed']
+    target, df = data
 
     normalized_df = normalization(df)
     features_final = one_hot_encoding(normalized_df)
@@ -76,3 +76,4 @@ def test_output(output, *args) -> None:
 
     assert output is not None, 'The output is undefined'
     # assert df.shape[0] > 0, 'must have some data' 
+

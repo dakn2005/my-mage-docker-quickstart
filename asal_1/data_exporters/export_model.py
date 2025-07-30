@@ -1,9 +1,11 @@
+from xgboost import XGBClassifier
+
 if 'data_exporter' not in globals():
     from mage_ai.data_preparation.decorators import data_exporter
 
 
 @data_exporter
-def export_data(data, *args, **kwargs):
+def export_data(data, *args, **kwargs) -> XGBClassifier:
     """
     Exports data to some source.
 
@@ -15,6 +17,6 @@ def export_data(data, *args, **kwargs):
         Optionally return any object and it'll be logged and
         displayed when inspecting the block run.
     """
-    # Specify your data exporting logic here
+    return data
 
 

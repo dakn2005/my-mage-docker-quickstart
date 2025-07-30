@@ -1,6 +1,6 @@
 from xgboost import XGBClassifier
 from pandas import DataFrame, Series
-from typing import List, Tuple, Dict, Union
+from typing import List, Tuple, Dict, Union 
 
 
 if 'transformer' not in globals():
@@ -10,13 +10,14 @@ if 'test' not in globals():
 
 
 @transformer
-def transform(data: Dict[str, Union[Series, DataFrame]], *args, **kwargs) -> XGBClassifier:
-    X_train, X_test, y_train, y_test = data
+def transform(data: Dict[str, Union[DataFrame, DataFrame, Series, Series]], *args, **kwargs) -> XGBClassifier:
+    
+    X_train, X_test, y_train, y_test = data["asal_data_transformed"]
 
     clf = XGBClassifier()
     clf.fit(X_train, y_train)
 
-    return clf
+    return clf 
 
 
 @test

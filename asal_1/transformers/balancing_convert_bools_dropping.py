@@ -27,20 +27,23 @@ def transform(data, *args, **kwargs) -> Tuple[Series, DataFrame]:
     # remap target classes
     data['Wealthgroup_Name'] = data['Wealthgroup_Name'].replace(['Better Off', 'Middle', 'Poor', 'Very Poor'], [0,1,2,3])
 
-    # Balancing
-    w1_data = data[data["Wealthgroup_Name"] == 0]
-    w2_data = data[data["Wealthgroup_Name"] == 1]
-    w3_data = data[data["Wealthgroup_Name"] == 2]
-    w4_data = data[data["Wealthgroup_Name"] == 3]
-    selection_number = 2000
+    ds_Balanced = True
+
+    if ds_Balanced:
+        # Balancing
+        w1_data = data[data["Wealthgroup_Name"] == 0]
+        w2_data = data[data["Wealthgroup_Name"] == 1]
+        w3_data = data[data["Wealthgroup_Name"] == 2]
+        w4_data = data[data["Wealthgroup_Name"] == 3]
+        selection_number = 2000
 
 
-    d1 = w1_data[:selection_number]
-    d2 = w2_data[:selection_number]
-    d3 = w3_data[:selection_number]
-    d4 = w4_data[:selection_number]
+        d1 = w1_data[:selection_number]
+        d2 = w2_data[:selection_number]
+        d3 = w3_data[:selection_number]
+        d4 = w4_data[:selection_number]
 
-    data = pd.concat([d1, d2, d3, d4])
+        data = pd.concat([d1, d2, d3, d4])
 
 
     # convert bools
@@ -48,7 +51,7 @@ def transform(data, *args, **kwargs) -> Tuple[Series, DataFrame]:
         "recipient_of_wfp",
         "OPCT_received",
         "PWSDCT_received",
-        "School_meal_receive",
+        "School_meal_receive", 
     ]
 
     data[bool_cols] = data[bool_cols].applymap(lambda x: x == 1)
@@ -70,19 +73,22 @@ def transform(data, *args, **kwargs) -> Tuple[Series, DataFrame]:
     # display(fd2.isnull().any())
 
     target = fd2["Wealthgroup_Name"] 
-    fd2 = fd2.drop(
-        [
-            "IsBeneficiaryHH",
-            "RowID",
-            "Sublocation_Name",
-            "Village_Name",
-            "Division_Name",
-            "Location_Name",
-        ],
-        axis=1,
-    )
-    fd2 = fd2.drop("Wealthgroup_Name", axis=1)
-    fd2 = fd2.drop("PMT_Score", axis=1)
+
+    drop_cols = [
+        "IsBeneficiaryHH",
+        "RowID",
+        "Sublocation_Name",
+        "Village_Name",
+        "Division_Name",
+        "Location_Name",
+        "Wealthgroup_Name",
+        "Wealthgroup_Name",
+        "PMT_Score"
+    ]
+    fd2 = fd2.drop(drop_cols, axis=1)
+
+    bool_cols = fd2.select_dtypes(include=['bool']).columns
+    fd2[bool_cols] = fd2[bool_cols].replace([False, True], [0, 1])
 
     return target, fd2
 

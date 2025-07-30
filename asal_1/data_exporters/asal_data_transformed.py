@@ -7,7 +7,7 @@ if 'data_exporter' not in globals():
 
 
 @data_exporter
-def export_data(data: Tuple[Series, DataFrame], *args, **kwargs) -> Tuple[Series, DataFrame]:
+def export_data(data: Tuple[Series, DataFrame], *args, **kwargs) -> Tuple[DataFrame, DataFrame, Series, Series]:
     """
     Exports data to some source.
 

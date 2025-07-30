@@ -6,3 +6,13 @@ le_dataset:
   repo_path: /home/src/asal_1
   settings:
     asal_data_transformed: {}
+xgboost_model:
+  object_type: pipeline
+  object_uuid: xgboost_training
+  outdated_after:
+    seconds: 86400
+  outdated_starting_at:
+    hour_of_day: 12
+  repo_path: /home/src/asal_1
+  settings:
+    export_model: {}

@@ -5,63 +5,48 @@ blocks:
     global_data_product:
       uuid: le_dataset
   downstream_blocks:
-  - training
+  - ann_training
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: le_dataset
+  name: late butterfly
   retry_config: null
   status: executed
   timeout: null
   type: global_data_product
   upstream_blocks: []
-  uuid: le_dataset
+  uuid: late_butterfly
 - all_upstream_blocks_executed: true
   color: null
-  configuration: {}
-  downstream_blocks:
-  - export_model
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: training
-  retry_config: null
-  status: executed
-  timeout: null
-  type: transformer
-  upstream_blocks:
-  - le_dataset
-  uuid: training
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
+  configuration:
+    file_source:
+      path: transformers/ann_training.py
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: export_model
+  name: ann_training
   retry_config: null
   status: executed
   timeout: null
-  type: data_exporter
+  type: transformer
   upstream_blocks:
-  - training
-  uuid: export_model
+  - late_butterfly
+  uuid: ann_training
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
 conditionals: []
-created_at: '2025-07-25 12:57:36.465345+00:00'
+created_at: '2025-07-30 16:33:20.842286+00:00'
 data_integration: null
 description: null
 executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: xgboost_training
+name: ann_pytorch_train
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -71,6 +56,6 @@ settings:
 spark_config: {}
 tags: []
 type: python
-uuid: xgboost_training
+uuid: ann_pytorch_train
 variables_dir: /home/src/mage_data/asal_1
 widgets: []
